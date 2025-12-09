@@ -6,17 +6,23 @@ import {
   updateUser,
   deleteUser,
 } from "../services/user.js";
+import { createUserValidator } from "../validators/user.js";
+import useValidator from "../middlewares/useValidator.js";
 
 const USER_ROUTER = Router();
 
-USER_ROUTER.post("/", async (req, res, next) => {
-  try {
-    const user = await createUser(req.body);
-    res.status(201).json(user);
-  } catch (error) {
-    next(error);
+USER_ROUTER.post(
+  "/",
+  useValidator(createUserValidator),
+  async (req, res, next) => {
+    try {
+      const user = await createUser(req.body);
+      res.status(201).json(user);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 USER_ROUTER.get("/", async (req, res, next) => {
   try {
