@@ -21,3 +21,25 @@ export const createUserValidator = [
     .isLength({ min: 8 })
     .withMessage("Password must be at least 8 characters long"),
 ];
+
+export const updateUserValidator = [
+  body("name").optional(),
+  body("email")
+    .optional()
+    .isEmail()
+    .withMessage("Invalid email")
+    .custom(async (value, { req }) => {
+      const user = await User.findOne({
+        email: value,
+        _id: { $ne: req.params.id },
+      });
+      if (user) {
+        throw new Error("This email has already been taken");
+      }
+      return true;
+    }),
+  body("password")
+    .optional()
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 characters long"),
+];
