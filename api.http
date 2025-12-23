@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:3000
 @userId = 691af6ce679594af902955ed
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTMyYjAyNGIwYzI2MmRmNDM2NDJiZmIiLCJpYXQiOjE3NjYwNTI1NTAsImV4cCI6MTc2NjEzODk1MH0.AroKc6ny_3GnUJihgxRhxB3QnIcY25q4HsrYghYx7E0
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTMyYjAyNGIwYzI2MmRmNDM2NDJiZmIiLCJpYXQiOjE3NjY0ODUxNzMsImV4cCI6MTc2NjU3MTU3M30.qnbeuW1VlMw-GWORxxpKnyVG3dM0mwwDOW8nZXT9JGA
 
 ### Create a new user
 POST {{baseUrl}}/users
@@ -66,4 +66,34 @@ Authorization: Bearer {{token}}
     "total": 1000
   },
   "destinations": ["Moon", "Mars", "Jupiter"]
+}
+
+### Get all trips
+GET {{baseUrl}}/trips
+Authorization: Bearer {{token}}
+
+### Get a trip by id
+GET {{baseUrl}}/trips/693e924a2c8a2493945185af
+Authorization: Bearer {{token}}
+
+### Create a new baggage
+POST {{baseUrl}}/693e924a2c8a2493945185af/baggages
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Baggage 1"
+}
+
+### Invite collaborators to a trip
+POST {{baseUrl}}/trips/693e924a2c8a2493945185af/invite
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "collaboratorEmails": [
+    "dbhattarai387@gmail.com",
+    "chaudharymuskan94@gmail.com",
+    "sumitdhakal98@gmail.com"
+  ]
 }
