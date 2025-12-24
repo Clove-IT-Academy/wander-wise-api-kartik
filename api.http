@@ -1,6 +1,8 @@
 @baseUrl = http://localhost:3000
 @userId = 691af6ce679594af902955ed
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTMyYjAyNGIwYzI2MmRmNDM2NDJiZmIiLCJpYXQiOjE3NjY0ODUxNzMsImV4cCI6MTc2NjU3MTU3M30.qnbeuW1VlMw-GWORxxpKnyVG3dM0mwwDOW8nZXT9JGA
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTMyYjAyNGIwYzI2MmRmNDM2NDJiZmIiLCJpYXQiOjE3NjY1NzQxNjMsImV4cCI6MTc2NjY2MDU2M30.794ZmCED40n-6PnqlB4MCRco-ESGAfmG-QSgdYcWMyw
+
+@acceptToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0cmlwSWQiOiI2OTNlOTI0YTJjOGEyNDkzOTQ1MTg1YWYiLCJpYXQiOjE3NjY1NzQxODcsImV4cCI6MTc2NjU3Nzc4N30.3DQGU6K31G8-8FERb_qi-P_BPYYphzuD3HnrbvdFm30
 
 ### Create a new user
 POST {{baseUrl}}/users
@@ -92,8 +94,10 @@ Authorization: Bearer {{token}}
 
 {
   "collaboratorEmails": [
-    "dbhattarai387@gmail.com",
-    "chaudharymuskan94@gmail.com",
-    "sumitdhakal98@gmail.com"
+    "shashankj677@gmail.com"
   ]
 }
+
+### Accept invitation to a trip
+GET {{baseUrl}}/trips/693e924a2c8a2493945185af/invite/accept?token={{acceptToken}}
+Authorization: Bearer {{token}}

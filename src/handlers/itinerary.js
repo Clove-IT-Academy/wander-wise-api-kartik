@@ -12,14 +12,18 @@ import {
   updateItineraryValidator,
 } from "../validators/itinerary.js";
 
-const ITINERARY_ROUTER = Router();
+const ITINERARY_ROUTER = Router({ mergeParams: true });
 
 ITINERARY_ROUTER.post(
   "/",
   useValidator(createItineraryValidator),
   async (req, res, next) => {
     try {
-      const itinerary = await createItinerary(req.body);
+      const itinerary = await createItinerary({
+        ...req.body,
+        trip: req.params.tripId,
+        user: req.user.userId,
+      });
       res.status(201).json(itinerary);
     } catch (error) {
       next(error);
@@ -31,7 +35,7 @@ ITINERARY_ROUTER.get("/", async (req, res, next) => {
   try {
     const itineraries = await getAllItineraries(
       req.params.tripId,
-      req.user._id
+      req.user.userId
     );
     res.json(itineraries);
   } catch (error) {
@@ -43,7 +47,7 @@ ITINERARY_ROUTER.get("/:id", async (req, res, next) => {
   try {
     const itinerary = await getItineraryById(
       req.params.id,
-      req.user._id,
+      req.user.userId,
       req.params.tripId
     );
     res.json(itinerary);
@@ -59,7 +63,7 @@ ITINERARY_ROUTER.patch(
     try {
       const itinerary = await updateItinerary(
         req.params.id,
-        req.user._id,
+        req.user.userId,
         req.params.tripId,
         req.body
       );
@@ -74,7 +78,7 @@ ITINERARY_ROUTER.delete("/:id", async (req, res, next) => {
   try {
     const itinerary = await deleteItinerary(
       req.params.id,
-      req.user._id,
+      req.user.userId,
       req.params.tripId
     );
     res.json(itinerary);
